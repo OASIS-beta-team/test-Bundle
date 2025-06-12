@@ -40,7 +40,7 @@ jobs:
           echo "- 最终构件名: $ARTIFACT_NAME"
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}
           path: output*
