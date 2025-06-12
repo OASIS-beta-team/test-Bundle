@@ -25,7 +25,6 @@ jobs:
 
       - name: Bundle Project
         run: |
-          echo "SHA=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
           python3 Bundle.py main.py output.py
           python3 Bundle.py main.py output--no-annotate.py --no-annotate
 
@@ -33,7 +32,7 @@ jobs:
         run: |
           CODE_LEN=$(wc -c < output--no-annotate.py | xargs)
           SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
-          ARTIFACT_NAME="oasis_pb[${CODE_LEN}]-${SHORT_SHA}"
+          ARTIFACT_NAME="output[${CODE_LEN}]-${SHORT_SHA}"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
           echo "- 代码长度: $CODE_LEN"
           echo "- 提交 SHA: $SHORT_SHA"
