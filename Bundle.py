@@ -7,7 +7,7 @@ import sys
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 inlined = set()
-ANNOTATE = True  # 默认开启注释，可通过参数关闭
+ANNOTATE = True
 
 
 def find_module_path(module_name):
@@ -72,8 +72,7 @@ def bundle(main_path, output_path):
 
     bundled_code = []
     bundled_code.append("# -*- coding: utf-8 -*-\n")
-    if ANNOTATE:
-        bundled_code.append(f"# Bundled by {os.path.basename(__file__)}\n\n")
+    bundled_code.append(f"# Bundled by {os.path.basename(__file__)}\n\n")
 
     bundled_code.append(inline_file(abs_main))
 
