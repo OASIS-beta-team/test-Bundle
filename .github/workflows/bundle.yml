@@ -28,15 +28,20 @@ jobs:
           python3 Bundle.py main.py output.py
           python3 Bundle.py main.py output--no-annotate.py --no-annotate
 
+      - name: Test Run
+        run: |
+          python3 output.py
+          python3 output--no-annotate.py
+
       - name: Build Artifact Name
         run: |
           CODE_LEN=$(wc -c < output--no-annotate.py | xargs)
           SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
           ARTIFACT_NAME="output[${CODE_LEN}]-${SHORT_SHA}"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
-          echo "- 代码长度: $CODE_LEN"
-          echo "- 提交 SHA: $SHORT_SHA"
-          echo "- 最终构件名: $ARTIFACT_NAME"
+          echo "🔢 代码字符数: $CODE_LEN"
+          echo "🔑 提交 SHA: $SHORT_SHA"
+          echo "📦 构件名: $ARTIFACT_NAME"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -44,8 +49,3 @@ jobs:
           name: ${{ env.ARTIFACT_NAME }}
           path: output*
           if-no-files-found: error
-
-      - name: Test
-        run: |
-          python3 output.py
-          python3 output--no-annotate.py
